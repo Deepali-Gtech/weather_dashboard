@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $("#submitBtn").click(function () {
-        console.log("here");
+       
         var city = $("#city").val().trim();
         var lat;
         var lon;
@@ -13,6 +13,10 @@ $(document).ready(function () {
                 console.log(response);
                 var city_date = response.name + "(" + getDate(response.dt) + ")";
                 $("#city-name").html(city_date);
+                var imgW = $("<img>");
+                imgW.attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+                $("#city-name").append(imgW);
+
                 $("#temp").html("Temperature: " +  response.main.temp + " F");
                 $("#humidity").html("Humidity: " + response.main.humidity + " %");
                 $("#windSpeed").html("Wind Speed: " +response.wind.speed + " MPH");
@@ -24,7 +28,7 @@ $(document).ready(function () {
                     url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&unit=imperial&appid=f1776acffaf07b5eb75b1acbf047c38b",
                     method: "GET",
                 }).then(function (response) {
-                    console.log(response);
+                   
                     var newDiv = $("<div>");
                     newDiv.html(city);
                     newDiv.css('border', 'thin solid black');
@@ -37,14 +41,16 @@ $(document).ready(function () {
 
                     $("#uvi").css('background-color', 'red');
                     
+                    $("#forecast").html("");
+
                     var days = 5;
                     var divForecastHeading = $("<h2>");
                     divForecastHeading.html(days + "-Day Forecast");
-                    $("#main-section").append(divForecastHeading);
+                    $("#forecast").append(divForecastHeading);
 
                     var divForecast = $("<div>");
                     divForecast.addClass("row");
-                    $("#main-section").append(divForecast);
+                    $("#forecast").append(divForecast);
 
                     var index = 1;
                     while (index <= days) {
