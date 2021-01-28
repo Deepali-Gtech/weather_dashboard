@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
 
     $("#submitBtn").click(function () {
        
@@ -9,8 +10,9 @@ $(document).ready(function () {
             $.ajax({
                 url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&unit=imperial&appid=f1776acffaf07b5eb75b1acbf047c38b",
                 method: "GET",
+                
             }).then(function (response) {
-                console.log(response);
+                $("#main-section").css("visibility", "visible");
                 var city_date = response.name + "(" + getDate(response.dt) + ")";
                 $("#city-name").html(city_date);
                 var imgW = $("<img>");
@@ -34,12 +36,35 @@ $(document).ready(function () {
                     newDiv.css('border', 'thin solid black');
                     newDiv.css('text-align', 'center');
                     $("#city").val("");
-                    $("#search-history").append(newDiv);
+                    $("#search-history").prepend(newDiv);
 
                     $("#uv-label").html("UV Index: ")
                     $("#uvi").html(response.daily[0].uvi);
 
-                    $("#uvi").css('background-color', 'red');
+                     $("#uvi").css('background-color', getColorCodeForUVIndex(response.daily[0].uvi));
+
+                    function getColorCodeForUVIndex(uvIndex) {
+                        var uvIndexValue = parseFloat(uvIndex);
+                        var colorcode = "";
+                        if (uvIndexValue <= 2) {
+                          colorcode = "#00ff00";
+                        }
+                        else if ((uvIndexValue > 2) && (uvIndexValue <= 5)) {
+                          colorcode = "#ffff00";
+                        }
+                        else if ((uvIndexValue > 5) && (uvIndexValue <= 7)) {
+                          colorcode = "#ffa500";
+                        }
+                        else if ((uvIndexValue > 7) && (uvIndexValue <= 10)) {
+                          colorcode = "#9e1a1a";
+                        }
+                        else if (uvIndexValue > 10) {
+                          colorcode = "#7f00ff";
+                        }
+                        return colorcode;
+                      }
+
+
                     
                     $("#forecast").html("");
 
