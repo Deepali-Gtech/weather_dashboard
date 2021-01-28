@@ -36,7 +36,7 @@ $(document).ready(function () {
                     newDiv.css('border', 'thin solid black');
                     newDiv.css('text-align', 'center');
                     $("#city").val("");
-                    $("#search-history").prepend(newDiv);
+                    $("#search-history").append(newDiv);
 
                     $("#uv-label").html("UV Index: ")
                     $("#uvi").html(response.daily[0].uvi);
