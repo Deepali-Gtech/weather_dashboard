@@ -13,3 +13,15 @@ Link to the deployed website: https://deepali-gtech.github.io/weather_dashboard
 
 ## Below is the screen short for the website after search
 ![Website](./img/dash_board.png)
+## Technologies used
+* Bootstrap
+* jQuery
+* CSS
+* Ajax
+
+## License 
+* MIT
+
+### Contact Detail 
+Email-Id : deeapaligarg.chd@gmail.com
+
